@@ -53,3 +53,19 @@ export function checkGuess(guess, answer) {
 
   return result;
 }
+
+export function orderStatus(statuses) {
+  if (statuses.includes('correct')) {
+    return 'correct';
+  }
+
+  if (statuses.includes('misplaced')) {
+    return 'misplaced';
+  }
+
+  if (statuses.includes('incorrect')) {
+    return 'incorrect';
+  }
+
+  return '';
+}

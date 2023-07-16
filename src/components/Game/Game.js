@@ -6,6 +6,7 @@ import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import GuessInput from '../GuessInput/GuessInput';
 import GuessResults from '../GuessResults/GuessResults';
 import ResultBanner from '../ResultBanner/ResultBanner';
+import { checkGuess } from '../../game-helpers';
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -15,17 +16,24 @@ console.info({ answer });
 function Game() {
   const [results, setResults] = React.useState([]);
 
-  const happyEnd = results[results.length - 1] === answer;
+  const happyEnd =
+    results[results.length - 1]
+      ?.map((charResult) => charResult.letter)
+      .join('') === answer;
   const sadEnd = !happyEnd && results.length >= NUM_OF_GUESSES_ALLOWED;
 
   const setGuess = (guessValue) => {
-    setResults([...results, guessValue]);
+    setResults([...results, checkGuess(guessValue, answer)]);
   };
 
   return (
     <>
-      <GuessResults results={results} answer={answer}></GuessResults>
-      <GuessInput setGuess={setGuess} isEnd={happyEnd || sadEnd}></GuessInput>
+      <GuessResults results={results}></GuessResults>
+      <GuessInput
+        setGuess={setGuess}
+        isEnd={happyEnd || sadEnd}
+        results={results}
+      ></GuessInput>
       <ResultBanner
         happyEnd={happyEnd}
         sadEnd={sadEnd}
