@@ -12,7 +12,6 @@ function GuessInput({ setGuess, isEnd, results }) {
       return;
     }
 
-    console.log('guessValue:', guessValue);
     setGuess(guessValue);
     setGuessValue('');
   };

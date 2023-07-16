@@ -231,6 +231,12 @@ h1 {
   color: white;
 }
 
+.restart-button {
+  margin-top: 4px;
+  padding: 4px;
+  border: 2px solid;
+}
+
 .visually-hidden {
   position: absolute;
   overflow: hidden;

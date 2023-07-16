@@ -8,12 +8,8 @@ import GuessResults from '../GuessResults/GuessResults';
 import ResultBanner from '../ResultBanner/ResultBanner';
 import { checkGuess } from '../../game-helpers';
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
-
 function Game() {
+  const [answer, setAnswer] = React.useState(sample(WORDS));
   const [results, setResults] = React.useState([]);
 
   const happyEnd =
@@ -39,6 +35,10 @@ function Game() {
         sadEnd={sadEnd}
         guessLength={results.length}
         answer={answer}
+        onClick={() => {
+          setAnswer(sample(WORDS));
+          setResults([]);
+        }}
       ></ResultBanner>
     </>
   );
