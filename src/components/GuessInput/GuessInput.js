@@ -1,4 +1,5 @@
 import React from 'react';
+import { NUM_OF_CHARS } from '../../constants';
 
 function GuessInput({ setGuess }) {
   const [guessValue, setGuessValue] = React.useState('');
@@ -22,7 +23,7 @@ function GuessInput({ setGuess }) {
         id="guess-input"
         type="text"
         value={guessValue}
-        pattern={'[A-Za-z]{5}'}
+        pattern={`[A-Za-z]{${NUM_OF_CHARS}}`}
         onChange={changeGuessValue}
       />
     </form>
