@@ -1,11 +1,16 @@
 import React from 'react';
 import { NUM_OF_CHARS } from '../../constants';
 
-function GuessInput({ setGuess }) {
+function GuessInput({ setGuess, isEnd }) {
   const [guessValue, setGuessValue] = React.useState('');
 
   const submitGuessInput = (event) => {
     event.preventDefault();
+
+    if (guessValue.length !== NUM_OF_CHARS) {
+      return;
+    }
+
     console.log('guessValue:', guessValue);
     setGuess(guessValue);
     setGuessValue('');
@@ -24,6 +29,7 @@ function GuessInput({ setGuess }) {
         type="text"
         value={guessValue}
         pattern={`[A-Za-z]{${NUM_OF_CHARS}}`}
+        disabled={isEnd}
         onChange={changeGuessValue}
       />
     </form>
