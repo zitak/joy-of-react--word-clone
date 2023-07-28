@@ -2,7 +2,7 @@ import React from 'react';
 import { NUM_OF_CHARS } from '../../constants';
 import Keyboard from '../Keyboard/Keyboard';
 
-function GuessInput({ setGuess, isEnd, results }) {
+function GuessInput({ setGuess, results, disabled }) {
   const [guessValue, setGuessValue] = React.useState('');
 
   const submitGuessInput = (event) => {
@@ -24,12 +24,13 @@ function GuessInput({ setGuess, isEnd, results }) {
         type="text"
         value={guessValue}
         pattern={`[A-Za-z]{${NUM_OF_CHARS}}`}
-        disabled={isEnd}
+        title={'5 character word'}
+        disabled={disabled}
         onChange={(event) => {
           setGuessValue(event.target.value.toUpperCase());
         }}
       />
-      <Keyboard results={results} disabled={isEnd}></Keyboard>
+      <Keyboard results={results} disabled={disabled}></Keyboard>
     </form>
   );
 }

@@ -5,21 +5,32 @@ import { WORDS } from '../../data';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import GuessInput from '../GuessInput/GuessInput';
 import GuessResults from '../GuessResults/GuessResults';
-import ResultBanner from '../ResultBanner/ResultBanner';
 import { checkGuess } from '../../game-helpers';
+import WonBanner from '../WonBanner/WonBanner';
+import LostBanner from '../LostBanner/LostBanner';
 
 function Game() {
   const [answer, setAnswer] = React.useState(sample(WORDS));
   const [results, setResults] = React.useState([]);
-
-  const happyEnd =
-    results[results.length - 1]
-      ?.map((charResult) => charResult.letter)
-      .join('') === answer;
-  const sadEnd = !happyEnd && results.length >= NUM_OF_GUESSES_ALLOWED;
+  // running | won | lost
+  const [gameStatus, setGameStatus] = React.useState('running');
 
   const setGuess = (guessValue) => {
-    setResults([...results, checkGuess(guessValue, answer)]);
+    const newResults = [...results, checkGuess(guessValue, answer)];
+    setResults(newResults);
+
+    // Check winning and losing the game
+    if (guessValue === answer) {
+      setGameStatus('won');
+    } else if (newResults.length >= NUM_OF_GUESSES_ALLOWED) {
+      setGameStatus('lost');
+    }
+  };
+
+  const handleNewAnswer = () => {
+    setGameStatus('running');
+    setAnswer(sample(WORDS));
+    setResults([]);
   };
 
   return (
@@ -27,19 +38,18 @@ function Game() {
       <GuessResults results={results}></GuessResults>
       <GuessInput
         setGuess={setGuess}
-        isEnd={happyEnd || sadEnd}
         results={results}
+        disabled={gameStatus !== 'running'}
       ></GuessInput>
-      <ResultBanner
-        happyEnd={happyEnd}
-        sadEnd={sadEnd}
-        guessLength={results.length}
-        answer={answer}
-        onClick={() => {
-          setAnswer(sample(WORDS));
-          setResults([]);
-        }}
-      ></ResultBanner>
+      {gameStatus === 'won' && (
+        <WonBanner
+          guessLength={results.length}
+          onClick={handleNewAnswer}
+        ></WonBanner>
+      )}
+      {gameStatus === 'lost' && (
+        <LostBanner answer={answer} onClick={handleNewAnswer}></LostBanner>
+      )}
     </>
   );
 }
