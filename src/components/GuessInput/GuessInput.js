@@ -30,7 +30,7 @@ function GuessInput({ setGuess, results, disabled }) {
           setGuessValue(event.target.value.toUpperCase());
         }}
       />
-      <Keyboard results={results} disabled={disabled}></Keyboard>
+      <Keyboard results={results}></Keyboard>
     </form>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { KEYBOARD_ROWS } from '../../constants';
 import { orderStatus } from '../../game-helpers';
 
-function Keyboard({ results, disabled }) {
+function Keyboard({ results }) {
   return (
     <div className="keyboard">
       {KEYBOARD_ROWS.map((row, index) => (
@@ -18,7 +18,6 @@ function Keyboard({ results, disabled }) {
               <span
                 key={char}
                 className={`keyboard-cell ${charBestStatus ?? ''}`}
-                disabled={disabled}
               >
                 {char}
               </span>

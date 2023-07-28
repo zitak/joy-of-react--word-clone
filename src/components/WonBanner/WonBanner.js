@@ -2,7 +2,7 @@ import React from 'react';
 import Banner from '../Banner/Banner';
 import RestartButton from '../RestartButton/RestartButton';
 
-function WonBanner({ guessLength, onClick }) {
+function WonBanner({ guessLength, handleRestart }) {
   return (
     <Banner status={'happy'}>
       <p>
@@ -13,7 +13,7 @@ function WonBanner({ guessLength, onClick }) {
         </strong>
         .
       </p>
-      <RestartButton onClick={onClick}></RestartButton>
+      {handleRestart && <RestartButton onClick={handleRestart}></RestartButton>}
     </Banner>
   );
 }

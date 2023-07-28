@@ -10,7 +10,7 @@ import WonBanner from '../WonBanner/WonBanner';
 import LostBanner from '../LostBanner/LostBanner';
 
 function Game() {
-  const [answer, setAnswer] = React.useState(sample(WORDS));
+  const [answer, setAnswer] = React.useState(() => sample(WORDS));
   const [results, setResults] = React.useState([]);
   // running | won | lost
   const [gameStatus, setGameStatus] = React.useState('running');
@@ -44,11 +44,14 @@ function Game() {
       {gameStatus === 'won' && (
         <WonBanner
           guessLength={results.length}
-          onClick={handleNewAnswer}
+          handleRestart={handleNewAnswer}
         ></WonBanner>
       )}
       {gameStatus === 'lost' && (
-        <LostBanner answer={answer} onClick={handleNewAnswer}></LostBanner>
+        <LostBanner
+          answer={answer}
+          handleRestart={handleNewAnswer}
+        ></LostBanner>
       )}
     </>
   );

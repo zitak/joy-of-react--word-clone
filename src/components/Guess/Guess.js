@@ -5,14 +5,15 @@ import { NUM_OF_CHARS } from '../../constants';
 function Guess({ guessResult }) {
   return (
     <p className="guess">
-      {range(0, NUM_OF_CHARS).map((index) => (
-        <span
-          key={index}
-          className={`cell ${guessResult?.[index]?.status ?? ''}`}
-        >
-          {guessResult?.[index]?.letter ?? ''}
-        </span>
-      ))}
+      {range(NUM_OF_CHARS).map((index) => {
+        const guess = guessResult?.[index];
+
+        return (
+          <span key={index} className={`cell ${guess?.status ?? ''}`}>
+            {guess?.letter ?? ''}
+          </span>
+        );
+      })}
     </p>
   );
 }
